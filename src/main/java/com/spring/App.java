@@ -1,6 +1,7 @@
 package com.spring;
 
-import org.springframework.context.ApplicationContext;
+import com.spring.Logger.EventLogger;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App {
@@ -12,16 +13,31 @@ public class App {
         this.eventLogger = eventLogger;
     }
 
-    private void logEvent(String msg) {
-        String message = msg.replaceAll(client.getId(), client.getFullName());
-        eventLogger.logEvent(message);
+
+    private void logEvent(Event event) {
+        Event e = null;
+        try {
+            e = (Event) event.clone();
+        } catch (CloneNotSupportedException ex) {
+            ex.printStackTrace();
+        }
+        e.setMsg(event.getMsg().replaceAll(client.getId(), client.getFullName()));
+        eventLogger.logEvent(e);
     }
 
     public static void main(String[] args) {
-        ApplicationContext ctx =
+        ConfigurableApplicationContext ctx =
                 new ClassPathXmlApplicationContext("spring.xml");
         App app = (App) ctx.getBean("app");
-        app.logEvent("Event for user 1");
-        app.logEvent("Event for user 2");
+        Event event = (Event) ctx.getBean("event");
+        event.setMsg("Event for user 1");
+        app.logEvent(event);
+        event.setMsg("Event for user 2");
+        app.logEvent(event);
+        event.setMsg("Event for user 3");
+        app.logEvent(event);
+        event.setMsg("Event for user 4");
+        app.logEvent(event);
+        ctx.close();
     }
 }
