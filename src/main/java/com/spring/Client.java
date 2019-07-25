@@ -3,10 +3,14 @@ package com.spring;
 public class Client {
     private String id;
     private String fullName;
-
+    public static int a;
     public Client(String id, String fullName) {
         this.id = id;
         this.fullName = fullName;
+    }
+
+    public void setGreeting(String greeting){
+        System.out.println(greeting);
     }
 
     public String getId() {
@@ -24,4 +28,5 @@ public class Client {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
 }

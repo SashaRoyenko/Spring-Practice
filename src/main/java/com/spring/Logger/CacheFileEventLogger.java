@@ -3,7 +3,6 @@ package com.spring.Logger;
 
 import com.spring.Event;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +13,7 @@ public class CacheFileEventLogger extends FileEventLogger {
     public CacheFileEventLogger(String filename, int cacheSize) {
         super(filename);
         this.cacheSize = cacheSize;
-        cache = new ArrayList<Event>();
-    }
-
-    @Override
-    public void init() throws IOException {
-        super.init();
+        cache = new ArrayList<>();
     }
 
     @Override
