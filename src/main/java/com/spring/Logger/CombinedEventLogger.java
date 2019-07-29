@@ -1,6 +1,6 @@
 package com.spring.Logger;
 
-import com.spring.Event;
+import com.spring.beans.Event;
 
 import java.util.Collection;
 

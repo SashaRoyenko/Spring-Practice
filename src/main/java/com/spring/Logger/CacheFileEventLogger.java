@@ -1,8 +1,9 @@
 package com.spring.Logger;
 
 
-import com.spring.Event;
+import com.spring.beans.Event;
 
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class CacheFileEventLogger extends FileEventLogger {
         }
     }
 
+    @PreDestroy
     public void destroy() {
         if (!cache.isEmpty()) {
             writeEventsFromCache();

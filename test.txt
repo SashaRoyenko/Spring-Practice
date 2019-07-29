@@ -1,2 +1,4 @@
-Test
-Event{id=32, msg='Test', date=Thu Jul 25 15:31:41 EEST 2019}
+Event{id=81, msg='And one more event for Oleksandr Roienko', date=Mon Jul 29 15:16:40 EEST 2019}
+Event{id=35, msg='Some event for 2', date=Mon Jul 29 15:16:40 EEST 2019}
+Event{id=35, msg='Some event for 3', date=Mon Jul 29 15:16:40 EEST 2019}
+Event{id=78, msg='null', date=Mon Jul 29 15:16:40 EEST 2019}

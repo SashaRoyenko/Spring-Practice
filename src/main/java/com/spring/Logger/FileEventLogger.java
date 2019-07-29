@@ -1,8 +1,9 @@
 package com.spring.Logger;
 
-import com.spring.Event;
+import com.spring.beans.Event;
 import org.apache.commons.io.FileUtils;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,6 +15,7 @@ public class FileEventLogger implements EventLogger {
         this.fileName = filename;
     }
 
+    @PostConstruct
     public void init() throws IOException{
         this.file = new File(this.fileName);
     }

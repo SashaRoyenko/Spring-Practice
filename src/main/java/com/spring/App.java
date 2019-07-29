@@ -3,48 +3,63 @@ package com.spring;
 import com.spring.Logger.CacheFileEventLogger;
 import com.spring.Logger.EventLogger;
 import com.spring.Logger.EventType;
+import com.spring.beans.Client;
+import com.spring.beans.Event;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Map;
 
 public class App {
+    @Autowired
     private Client client;
-    private EventLogger eventLogger;
+    public EventLogger defaultLogger;
     private Map<EventType, EventLogger> loggers;
 
-    public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
+    public App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> loggers) {
         this.client = client;
-        this.eventLogger = eventLogger;
+        this.defaultLogger = defaultLogger;
         this.loggers = loggers;
-    }
-
-
-    private void logEvent(EventType type, String msg) {
-//        Event e = null;
-//        try {
-//            e = (Event) event.clone();
-//        } catch (CloneNotSupportedException ex) {
-//            ex.printStackTrace();
-//        }
-//        e.setMsg(event.getMsg().replaceAll(client.getId(), client.getFullName()));
-//        eventLogger.logEvent(e);
-        ConfigurableApplicationContext ctx =
-                new ClassPathXmlApplicationContext("spring.xml");
-        Event event = (Event) ctx.getBean("event");
-        event.setMsg(msg);
-        EventLogger logger = loggers.get(type);
-        if(logger == null){
-            logger = (CacheFileEventLogger)ctx.getBean("cacheFileEventLogger");
-        }
-        logger.logEvent(event);
     }
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx =
                 new ClassPathXmlApplicationContext("spring.xml");
         App app = (App) ctx.getBean("app");
-        app.logEvent(EventType.ERROR, "Test");
+        app.logEvents(ctx);
+        app.defaultLogger.logEvent((Event) ctx.getBean("event"));
+
         ctx.close();
+    }
+
+    public void logEvents(ApplicationContext ctx) {
+        Event event = ctx.getBean(Event.class);
+        logEvent(EventType.INFO, event, "Some event for 1");
+
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.INFO, event, "One more event for 1");
+
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.ERROR, event, "And one more event for 1");
+
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.ERROR, event, "Some event for 2");
+
+        event = ctx.getBean(Event.class);
+        logEvent(null, event, "Some event for 3");
+    }
+
+    private void logEvent(EventType eventType, Event event, String msg) {
+        String message = msg.replaceAll(client.getId(), client.getFullName());
+        event.setMsg(message);
+
+        EventLogger logger = loggers.get(eventType);
+        if (logger == null) {
+            logger = defaultLogger;
+        }
+
+        logger.logEvent(event);
     }
 }

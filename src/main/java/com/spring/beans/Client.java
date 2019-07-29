@@ -1,4 +1,4 @@
-package com.spring;
+package com.spring.beans;
 
 public class Client {
     private String id;

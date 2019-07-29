@@ -1,5 +1,6 @@
-package com.spring;
+package com.spring.beans;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Random;
 
@@ -14,7 +15,6 @@ public class Event implements Cloneable{
         Random random = new Random();
         this.id = random.nextInt(100);
         this.date = date;
-
     }
 
 
@@ -30,6 +30,10 @@ public class Event implements Cloneable{
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public static boolean isDay(){
+        return LocalTime.now().getHour() >= 8 && LocalTime.now().getHour() <= 17;
     }
 
     @Override
