@@ -16,11 +16,20 @@
 	    http://www.springframework.org/schema/aop
  		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
-    <context:annotation-config/>
-    <aop:aspectj-autoproxy/>
+    <context:property-placeholder location="${CLIENT_PROPS:classpath:client.properties},
+                                           ${DB_PROPS:classpath:db.properties}"
+                                  system-properties-mode="OVERRIDE" ignore-resource-not-found="false"/>
 
-    <import resource="loggers.xml"/>
-    <import resource="db.xml"/>
-    <import resource="other.xml"/>
+    <bean id="jdbcTemplate"
+          class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${db.connection.driver}"/>
+        <property name="url" value="${db.connection.url}"/>
+        <property name="username" value="${db.connection.username}"/>
+        <property name="password" value="${db.connection.password}"/>
+    </bean>
 
 </beans>
