@@ -1,0 +1,22 @@
+<html>
+<body>
+<div>Users list</div>
+<form action="register" method="post" style="display: flex; flex-direction: column; width:400px;">
+    <input type="text" name="firstName" placeholder="Enter first name">
+    <input type="text" name="lastName" placeholder="Enter last name">
+    <input type="text" name="phone" placeholder="Enter your phone">
+    <input type="email" name="email" placeholder="Enter your email">
+    <input type="password" name="password" placeholder="Enter your password">
+    <button type="submit">Add</button>
+</form>
+{{#users}}
+    <div>
+        <span>{{id}}</span>
+        <b>{{firstName}}</b>
+        <b>{{lastName}}</b>
+        <span>{{phone}}</span>
+        <span>{{email}}</span>
+    </div>
+{{/users}}
+</body>
+</html>
