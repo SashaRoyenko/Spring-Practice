@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Role</th>
+    </tr>
+    {{#users}}
+        <tr>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{role}}</td>
+            <td><a href="/user/{{id}}">Edit</a></td>
+        </tr>
+    {{/users}}
+</table>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+<form action="/user" method="post" style="display: flex; flex-direction: column; width: 500px;">
+    <input type="email" name="email" value="{{user.email}}">
+    <p>
+        {{#roles}}
+                <input type="radio" name="role" value="{{authority}}">
+                {{authority}}
+        {{/roles}}
+    </p>
+    <input type="hidden" value="{{user.id}}" name="userId">
+    <input type="hidden" value="{{_csrf.token}}" name="_csrf">
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
